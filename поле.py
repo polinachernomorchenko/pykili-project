@@ -108,11 +108,14 @@ def game_agent(field, move, laststr, laststl):
                     else:
                         b = False
 
-        if able_to_win(field):
-            field = able_to_win(field)
-        elif prevent_win(field):
-            field = prevent_win(field)
-
+        field_able = able_to_win(field)
+        if not field_able:
+            field_prevent = prevent_win(field)
+        if field_able:
+            field = field_able
+        elif field_prevent:
+            field = field_prevent
+            
     return field
 
 
