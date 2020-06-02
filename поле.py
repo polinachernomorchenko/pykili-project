@@ -19,7 +19,7 @@ def draw_field(field, super_pink, cross, zero, block, space):
                 pygame.display.update()
 
 
-def prevent_win(field):
+def prevent_win(field): 
 
     for str in field:  # строка
         if str.count('o') == 2:
@@ -41,7 +41,7 @@ def prevent_win(field):
     return False
 
 
-def able_to_win(field):
+def able_to_win(field): #
 
     for i in range(3):  # строка
         if field[i].count('x') == 2:
@@ -85,14 +85,14 @@ def able_to_win(field):
 
 def game_agent(field, move, laststr, laststl):
 
-    if move == 0:  # cтавим крест в центр поля
+    if move == 0:  # 1 ход, занимаем центр поля
         field[1][1] = 'x'
         return field
 
-    if move == 2:  # узнаем ход противника и выбираем желаемый угол
+    if move == 2:  # узнаем куда сходил человек и выбираем противоположный угол
         for str in range(3):
             for stl in range(3):
-                if field[str][stl] == 'o':
+                if field[str][stl] == 'o': 
                     i = str
                     j = stl
                     break
@@ -109,9 +109,9 @@ def game_agent(field, move, laststr, laststl):
         field[str][stl] = 'x'
         return field
 
-    if move == 4:  # б = первый ход ноликов в углу, а = второй ход ноликов в углу
+    if move == 4: 
 
-        if laststr == 0 and laststl == 0 \
+        if laststr == 0 and laststl == 0 \ #проверяет, второй ход человека в углу или нет
         or laststr == 0 and laststl == 2 \
         or laststr == 2 and laststl == 0 \
         or laststr == 2 and laststl == 2:
@@ -119,7 +119,7 @@ def game_agent(field, move, laststr, laststl):
         else:
             a = False
 
-        for i in range(3):
+        for i in range(3): #проверяет, первый ход человека в углу или нет
             for j in range(3):
                 if field[i][j] == 'o' and (i != laststr or j != laststl):
                     fstr = i
@@ -132,8 +132,8 @@ def game_agent(field, move, laststr, laststl):
                     else:
                         b = False
 
-        field_able = able_to_win(field)
-        if not field_able:
+        field_able = able_to_win(field) #(not a and not b) или (a not b) - можно выиграть прямо сейчас
+        if not field_able: #(a and b) выиграть вообще нельзя, только предотвратить победу человека
             field_prevent = prevent_win(field)
 
         if field_able:
@@ -142,10 +142,10 @@ def game_agent(field, move, laststr, laststl):
         elif field_prevent:
             field = field_prevent
 
-        elif b and not a:
-            pygame.time.wait(500)
+        elif b and not a: #выиграть можно, но нужно правильно сходить
+            pygame.time.wait(500) #это просто чтоб компьютер не ходил слишком быстро
 
-            if fstr == 2 and laststr == 1:
+            if fstr == 2 and laststr == 1: #далее вручную прописаны 8 возможных состояний и правильный ход для каждого
                 if fstl == 0:
                     field[0][0] = 'x'
                     return field  # 1
@@ -188,7 +188,7 @@ def game_agent(field, move, laststr, laststl):
         elif field_prevent:
             field = field_prevent
 
-        else:
+        else: #рандомный выбор если нельзя победить или предотвратить победу
             free_sq = []
             for i in range(3):
                 for j in range(3):
