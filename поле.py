@@ -286,7 +286,7 @@ while True:
                     field[str][stl] = 'o'
                     if not game_end:
                         draw_field(field, super_pink, cross, zero, block, space)
-                move += 1
+                     move += 1
                 pygame.time.wait(250)
 
             if move % 2 == 0 and not game_end:
